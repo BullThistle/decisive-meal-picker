@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Header, Segment, Grid } from 'semantic-ui-react';
+import { GoogleMap } from 'components';
 
 class Restaurant extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class Restaurant extends Component {
         <Segment>
           <Grid columns={2}>
             <Grid.Column>
-              <p>map goes here</p>
+              <GoogleMap />
             </Grid.Column>
             <Grid.Column>
               <Header>{this.state.name}</Header>
