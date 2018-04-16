@@ -3,8 +3,8 @@ import { Header, Container } from 'semantic-ui-react';
 import Restaurant from '../../containers/Restaurant/Restaurant';
 
 const Home = () => (
-  <Container>
-    <Header>React Redux Boilerplate</Header>
+  <Container textAlign="center">
+    <Header>Decisive Meal Picker</Header>
     <p>
       Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod aut dolore
       quam maxime nulla eum ullam enim voluptas dolorum eius! Similique ea

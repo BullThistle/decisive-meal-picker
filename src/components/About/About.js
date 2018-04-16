@@ -2,7 +2,7 @@ import React from 'react';
 import { Header, Container } from 'semantic-ui-react';
 
 const About = () => (
-  <Container>
+  <Container textAlign="center">
     <Header>About</Header>
     <p>
       Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod aut dolore

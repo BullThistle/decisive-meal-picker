@@ -4,7 +4,7 @@ import { Menu } from 'semantic-ui-react';
 const Navbar = () => (
   <Menu>
     <Menu.Item header href="/">
-      Boilerplate
+      Decisive Meal Picker
     </Menu.Item>
     <Menu.Item href="/about">About</Menu.Item>
   </Menu>
