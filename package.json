@@ -4,6 +4,8 @@
   "version": "1.0.0",
   "description": "Get started with Semantic UI React and Webpack 3",
   "dependencies": {
+    "dotenv": "^5.0.1",
+    "dotenv-webpack": "^1.5.5",
     "google-map-react": "^0.34.0",
     "lodash": "^4.17.5",
     "prop-types": "^15.6.1",

@@ -2,6 +2,7 @@ const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
+const Dotenv = require('dotenv-webpack');
 
 const paths = require('./paths');
 
@@ -21,7 +22,9 @@ const autoprefixerOptions = {
 };
 // Note: defined here because it will be used more than once.
 const cssFilename = 'static/css/[name].[contenthash:8].css';
-const cssClassName = isDev ? '[path][name]__[local]--[hash:base64:5]' : '[hash:base64:5]';
+const cssClassName = isDev
+  ? '[path][name]__[local]--[hash:base64:5]'
+  : '[hash:base64:5]';
 // Heads up!
 // We use ExtractTextPlugin to extract LESS content in production environment,
 // we will still use fallback to style-loader in development.
@@ -38,7 +41,9 @@ const extractTextPluginOptions = shouldUseRelativeAssetPaths
   { publicPath: Array(cssFilename.split('/').length).join('../') }
   : {};
 // Source maps are resource heavy and can cause out of memory issue for large source files.
-const shouldUseSourceMap = process.env.NODE_ENV === 'production' && process.env.GENERATE_SOURCEMAP !== 'false';
+const shouldUseSourceMap =
+  process.env.NODE_ENV === 'production' &&
+  process.env.GENERATE_SOURCEMAP !== 'false';
 
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
@@ -75,9 +80,7 @@ module.exports = {
       // in development "style" loader enables hot editing of CSS.
       {
         test: /\.less$/,
-        exclude: [
-          path.resolve(paths.appSrc, 'components'),
-        ],
+        exclude: [path.resolve(paths.appSrc, 'components')],
         use: extractLess.extract({
           fallback: {
             loader: 'style-loader',
@@ -116,9 +119,7 @@ module.exports = {
       // and don't break SUI.
       {
         test: /\.less$/,
-        include: [
-          path.resolve(paths.appSrc, 'components'),
-        ],
+        include: [path.resolve(paths.appSrc, 'components')],
         use: extractLess.extract({
           fallback: {
             loader: require.resolve('style-loader'),
@@ -184,9 +185,7 @@ module.exports = {
     tls: 'empty',
     child_process: 'empty',
   },
-  plugins: [
-    extractLess,
-  ],
+  plugins: [extractLess, new Dotenv()],
   resolve: {
     alias: {
       '../../theme.config$': path.resolve(paths.appSrc, 'styling/theme.config'),
@@ -196,13 +195,9 @@ module.exports = {
     // We placed these paths second because we want `node_modules` to "win"
     // if there are any conflicts. This matches Node resolution mechanism.
     // https://github.com/facebookincubator/create-react-app/issues/253
-    modules: [
-      'node_modules',
-      paths.appNodeModules,
-      paths.appSrc,
-    ].concat(
+    modules: ['node_modules', paths.appNodeModules, paths.appSrc].concat(
       // It is guaranteed to exist because we tweak it in `env.js`
-      process.env.NODE_PATH.split(path.delimiter).filter(Boolean) ),
+      process.env.NODE_PATH.split(path.delimiter).filter(Boolean),),
     // These are the reasonable defaults supported by the Node ecosystem.
     // We also include JSX as a common component filename extension to support
     // some tools, although we do not recommend using it, see:
