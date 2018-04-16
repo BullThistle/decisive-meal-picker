@@ -22,7 +22,7 @@ class Restaurant extends Component {
             <Grid.Column>
               <GoogleMap />
             </Grid.Column>
-            <Grid.Column>
+            <Grid.Column textAlign="left">
               <Header>{this.state.name}</Header>
               <p>{this.state.address}</p>
               <p>{this.state.phone}</p>
