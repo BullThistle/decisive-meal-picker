@@ -36,8 +36,8 @@ class Restaurant extends Component {
               />
               <p style={{ marginTop: '10px' }}>{this.state.address}</p>
               <p>{this.state.phone}</p>
-              <p>{this.state.website}</p>
-              <p>
+              <a href={this.state.website}>{this.state.website}</a>
+              <p style={{ marginTop: '10px' }}>
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod
                 aut dolore quam maxime nulla eum ullam enim voluptas dolorum
                 eius! Similique ea voluptate reiciendis quibusdam itaque.
