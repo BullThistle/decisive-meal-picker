@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Header } from 'semantic-ui-react';
+import { Container, Header, Segment, Grid } from 'semantic-ui-react';
 
 class Restaurant extends Component {
   constructor(props) {
@@ -16,11 +16,20 @@ class Restaurant extends Component {
   render() {
     return (
       <Container>
-        <Header>{this.state.name}</Header>
-        <p>{this.state.address}</p>
-        <p>{this.state.phone}</p>
-        <p>{this.state.website}</p>
-        <p>{this.state.rating}</p>
+        <Segment>
+          <Grid columns={2}>
+            <Grid.Column>
+              <p>map goes here</p>
+            </Grid.Column>
+            <Grid.Column>
+              <Header>{this.state.name}</Header>
+              <p>{this.state.address}</p>
+              <p>{this.state.phone}</p>
+              <p>{this.state.website}</p>
+              <p>{this.state.rating}</p>
+            </Grid.Column>
+          </Grid>
+        </Segment>
       </Container>
     );
   }
