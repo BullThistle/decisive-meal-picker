@@ -1,3 +1,8 @@
 /*******************************
     User Variable Overrides
 *******************************/
+
+@background: #455361;
+@color: white;
+@itemTextColor: white;
+@borderRadius: none;

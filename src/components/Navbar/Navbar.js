@@ -1,12 +1,14 @@
 import React from 'react';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Container } from 'semantic-ui-react';
 
 const Navbar = () => (
   <Menu>
-    <Menu.Item header href="/">
-      Decisive Meal Picker
-    </Menu.Item>
-    <Menu.Item href="/about">About</Menu.Item>
+    <Container>
+      <Menu.Item header href="/">
+        Decisive Meal Picker
+      </Menu.Item>
+      <Menu.Item href="/about">About</Menu.Item>
+    </Container>
   </Menu>
 );
 
