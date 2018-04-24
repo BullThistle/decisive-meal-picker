@@ -3,6 +3,9 @@ import { Container, Header, Segment, Grid } from 'semantic-ui-react';
 import ReactStars from 'react-stars';
 import { GoogleMap } from 'components';
 
+// Backend API Address:
+// process.env.API_ADDRESS + '/api/restaurant?[params]'
+
 class Restaurant extends Component {
   constructor(props) {
     super(props);
