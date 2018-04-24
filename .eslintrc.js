@@ -7,7 +7,8 @@ module.exports = {
   rules: {
     "react/jsx-filename-extension": 0,
     "import/extensions": "off",
-    "import/no-unresolved": "off"
+    "import/no-unresolved": "off",
+    "linebreak-style": 0
   },
   env: {
     browser: true,
