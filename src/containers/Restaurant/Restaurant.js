@@ -13,15 +13,101 @@ class Restaurant extends Component {
       phone: '+1 206-782-8722',
       website: 'http://www.lacartadeoaxaca.com/',
       rating: 4,
+      lat: 0,
+      lng: 0,
     };
   }
+
+  // componentDidMount() {
+  //   this.getPosition();
+  // }
+
+  // componentDidUpdate() {
+  //   this.getPosition();
+  // }
+
+  geolocation() {
+    // const self = this;
+
+    'use strict';
+
+    return new Promise((resolve, reject) => {
+      const coordinates = {
+        latitude: null,
+        longitude: null,
+        error: false,
+        testData: 'Hello, world!',
+      };
+      function success(pos) {
+        coordinates.latitude = pos.coords.latitude;
+        coordinates.longitude = pos.coords.longitude;
+        coordinates.testData = 'I am John';
+        resolve(coordinates);
+      }
+
+      function fail(error) {
+        coordinates.error = true;
+        resolve(coordinates); // or reject(error);
+      }
+      navigator.geolocation.getCurrentPosition(success, fail);
+    });
+  }
+
+  // getPosition() {
+  //   'use strict';
+
+  //   return new Promise((resolve, reject) => {
+  //     const coordinates = {
+  //       latitude: null,
+  //       longitude: null,
+  //       error: false,
+  //       testData: 'Hello, world!',
+  //     };
+  //     function success(pos) {
+  //       coordinates.latitude = pos.coords.latitude;
+  //       coordinates.longitude = pos.coords.longitude;
+  //       coordinates.testData = 'I am John';
+  //       resolve(coordinates);
+  //     }
+
+  //     function fail(error) {
+  //       coordinates.error = true;
+  //       resolve(coordinates); // or reject(error);
+  //     }
+  //     navigator.geolocation.getCurrentPosition(success, fail);
+  //   });
+  // }
+
+  // success(position) {
+  //   const lat = position.coords.latitude;
+  //   const lng = position.coords.longitude;
+  //   resolve();
+  // }
+
+  // fail() {
+  //   console.log('failed');
+  // }
+
+  // geolocation() {
+  //   // const self = this;
+  //   if (navigator.geolocation) {
+  //     console.log('made it in the function');
+  //     navigator.geolocation.getCurrentPosition(
+  //       this.success.bind(this), // eslint-disable-line no-use-before-define
+  //       this.fail, // eslint-disable-line no-use-before-define
+  //     ); /* eslint-disable max-len */
+  //   } else {
+  //     alert('Browser not supported');
+  //   }
+  // }
+
   render() {
     return (
       <Container>
         <Segment>
           <Grid columns={2}>
             <Grid.Column>
-              <GoogleMap />
+              <GoogleMap lat={this.state.lat} lng={this.state.lng} />
             </Grid.Column>
             <Grid.Column textAlign="left">
               <Header style={{ marginBottom: '10px' }}>
