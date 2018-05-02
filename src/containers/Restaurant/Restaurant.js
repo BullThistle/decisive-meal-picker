@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Container, Header, Segment, Grid } from 'semantic-ui-react';
 import ReactStars from 'react-stars';
+import restaurant from '../../actions/YelpRestaurant';
 // import { GoogleMap } from 'components';
 
 class Restaurant extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
+    console.log(this.props.restaurant());
     this.state = {
       name: 'La Carta de Oaxaca',
       address: '5431 Ballard Ave NW, Seattle, WA 98107',
@@ -52,7 +54,14 @@ class Restaurant extends Component {
     );
   }
 }
-function mapStateToProps({ YelpRestaurant }) {
-  return { YelpRestaurant };
-}
-export default connect(mapStateToProps)(Restaurant);
+
+Restaurant.propTypes = {
+  restaurant: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = {
+  restaurant,
+};
+
+export default connect(null, mapDispatchToProps)(Restaurant);
+// export default Restaurant;

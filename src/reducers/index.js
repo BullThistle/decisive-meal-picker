@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import YelpRestaurantReducer from './YelpRestaurantReducer';
-import { fetchRestaurant } from '../actions/YelpRestaurant';
+// import YelpRestaurant from '../actions/YelpRestaurant';
 
 const rootReducer = combineReducers({
-  YelpRestaurant: YelpRestaurantReducer([], fetchRestaurant()),
+  restaurant: YelpRestaurantReducer,
 });
 
 export default rootReducer;
