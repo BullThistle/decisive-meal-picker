@@ -7,7 +7,7 @@
 /build
 
 # misc
-.vscode/
+.vscode/    
 .DS_Store
 
 npm-debug.log*
