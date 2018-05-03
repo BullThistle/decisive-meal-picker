@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Container, Header, Segment, Grid } from 'semantic-ui-react';
 import ReactStars from 'react-stars';
-import restaurant from '../../actions/YelpRestaurant';
+import * as actions from '../../actions';
 // import { GoogleMap } from 'components';
 
 class Restaurant extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.restaurant());
     this.state = {
       name: 'La Carta de Oaxaca',
       address: '5431 Ballard Ave NW, Seattle, WA 98107',
@@ -17,6 +16,14 @@ class Restaurant extends Component {
       website: 'http://www.lacartadeoaxaca.com/',
       rating: 4,
     };
+  }
+
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  fetchData() {
+    this.props.getRestaurantAsync();
   }
 
   render() {
@@ -56,12 +63,15 @@ class Restaurant extends Component {
 }
 
 Restaurant.propTypes = {
-  restaurant: PropTypes.func.isRequired,
+  getRestaurantAsync: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = {
-  restaurant,
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    todos: 'test',
+  };
 };
 
-export default connect(null, mapDispatchToProps)(Restaurant);
-// export default Restaurant;
+export default connect(mapStateToProps, actions)(Restaurant);
+
