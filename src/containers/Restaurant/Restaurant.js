@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -7,17 +8,6 @@ import * as actions from '../../actions';
 // import { GoogleMap } from 'components';
 
 class Restaurant extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: 'La Carta de Oaxaca',
-      address: '5431 Ballard Ave NW, Seattle, WA 98107',
-      phone: '+1 206-782-8722',
-      website: 'http://www.lacartadeoaxaca.com/',
-      rating: 4,
-    };
-  }
-
   componentDidMount() {
     this.fetchData();
   }
@@ -27,6 +17,9 @@ class Restaurant extends Component {
   }
 
   render() {
+    const {
+      name, rating, address, phone,
+    } = this.props.restaurantInfo;
     return (
       <Container>
         <Segment>
@@ -36,18 +29,17 @@ class Restaurant extends Component {
             </Grid.Column>
             <Grid.Column textAlign="left">
               <Header style={{ marginBottom: '10px' }}>
-                {this.state.name}
+                {name}
               </Header>
               <ReactStars
                 count={5}
                 size={14}
-                value={this.state.rating}
+                value={rating}
                 color2="#ffd700"
                 edit={false}
               />
-              <p style={{ marginTop: '10px' }}>{this.state.address}</p>
-              <p>{this.state.phone}</p>
-              <a href={this.state.website}>{this.state.website}</a>
+              <p style={{ marginTop: '10px' }}>{address}</p>
+              <p>{phone}</p>
               <p style={{ marginTop: '10px' }}>
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod
                 aut dolore quam maxime nulla eum ullam enim voluptas dolorum
@@ -64,14 +56,12 @@ class Restaurant extends Component {
 
 Restaurant.propTypes = {
   getRestaurantAsync: PropTypes.func.isRequired,
+  restaurantInfo: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  console.log(state);
-  return {
-    todos: 'test',
-  };
-};
+const mapStateToProps = state => ({
+  restaurantInfo: state.restaurant,
+});
 
 export default connect(mapStateToProps, actions)(Restaurant);
 

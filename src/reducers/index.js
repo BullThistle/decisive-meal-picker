@@ -1,8 +1,8 @@
-// import { combineReducers } from 'redux';
-import restaurant from './restaurant';
+import { combineReducers } from 'redux';
+import yelp from './yelp';
 
-// const rootReducer = combineReducers({
-//   restaurant,
-// });
+const rootReducer = combineReducers({
+  restaurant: yelp,
+});
 
-export default restaurant;
+export default rootReducer;
