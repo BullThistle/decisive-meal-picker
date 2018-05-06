@@ -17,9 +17,10 @@ class Restaurant extends Component {
   }
 
   render() {
+    console.log(this.props);
     const {
       name, rating, address, phone,
-    } = this.props.restaurantInfo;
+    } = this.props;
     return (
       <Container>
         <Segment>
@@ -56,11 +57,24 @@ class Restaurant extends Component {
 
 Restaurant.propTypes = {
   getRestaurantAsync: PropTypes.func.isRequired,
-  restaurantInfo: PropTypes.object.isRequired,
+  name: PropTypes.string,
+  rating: PropTypes.number,
+  address: PropTypes.string,
+  phone: PropTypes.string,
+};
+
+Restaurant.defaultProps = {
+  name: 'La Carta de Oaxaca',
+  address: 'La Carta de Oaxaca',
+  phone: '+1 206-782-8722',
+  rating: 4,
 };
 
 const mapStateToProps = state => ({
-  restaurantInfo: state.restaurant,
+  name: state.restaurant.name,
+  rating: state.restaurant.rating,
+  address: state.restaurant.address,
+  phone: state.restaurant.phone,
 });
 
 export default connect(mapStateToProps, actions)(Restaurant);

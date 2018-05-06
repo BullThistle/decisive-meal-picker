@@ -15,7 +15,7 @@ const yelp = (state, action) => {
         name, rating, phone, address,
       };
     case 'GET_RESTAURANT_FAILED':
-      return action;
+      return { status: 'ERROR', message: action.payload.message };
     default:
       return action;
   }
