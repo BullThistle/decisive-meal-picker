@@ -9,15 +9,24 @@ import * as actions from '../../actions';
 
 class Restaurant extends Component {
   componentDidMount() {
-    this.fetchData();
+    this.fetchPosition();
   }
 
-  fetchData() {
-    this.props.getRestaurantAsync();
+  componentDidUpdate() {
+    if (this.props.latitude && this.props.longitude) {
+      this.fetchData(this.props.latitude, this.props.longitude);
+    }
+  }
+
+  fetchData(lat, long) {
+    this.props.getRestaurantAsync(lat, long);
+  }
+
+  fetchPosition() {
+    this.props.getGeoLocationAsync();
   }
 
   render() {
-    console.log(this.props);
     const {
       name, rating, address, phone,
     } = this.props;
@@ -56,11 +65,14 @@ class Restaurant extends Component {
 }
 
 Restaurant.propTypes = {
+  getGeoLocationAsync: PropTypes.func.isRequired,
   getRestaurantAsync: PropTypes.func.isRequired,
   name: PropTypes.string,
   rating: PropTypes.number,
   address: PropTypes.string,
   phone: PropTypes.string,
+  latitude: PropTypes.number,
+  longitude: PropTypes.number,
 };
 
 Restaurant.defaultProps = {
@@ -68,6 +80,8 @@ Restaurant.defaultProps = {
   address: 'La Carta de Oaxaca',
   phone: '+1 206-782-8722',
   rating: 4,
+  latitude: 0,
+  longitude: 0,
 };
 
 const mapStateToProps = state => ({
@@ -75,6 +89,8 @@ const mapStateToProps = state => ({
   rating: state.restaurant.rating,
   address: state.restaurant.address,
   phone: state.restaurant.phone,
+  latitude: state.location.latitude,
+  longitude: state.location.longitude,
 });
 
 export default connect(mapStateToProps, actions)(Restaurant);
