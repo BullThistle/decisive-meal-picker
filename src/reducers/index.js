@@ -1,7 +1,10 @@
 import { combineReducers } from 'redux';
+import yelp from './yelp';
+import geolocation from './geolocation';
 
 const rootReducer = combineReducers({
-  state: (state = {}) => state,
+  restaurant: yelp,
+  location: geolocation,
 });
 
 export default rootReducer;

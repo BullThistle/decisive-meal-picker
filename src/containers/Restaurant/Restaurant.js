@@ -1,42 +1,55 @@
+/* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Container, Header, Segment, Grid } from 'semantic-ui-react';
 import ReactStars from 'react-stars';
-import { GoogleMap } from 'components';
+import * as actions from '../../actions';
+// import { GoogleMap } from 'components';
 
 class Restaurant extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      name: 'La Carta de Oaxaca',
-      address: '5431 Ballard Ave NW, Seattle, WA 98107',
-      phone: '+1 206-782-8722',
-      website: 'http://www.lacartadeoaxaca.com/',
-      rating: 4,
-    };
+  componentDidMount() {
+    this.fetchPosition();
   }
+
+  componentDidUpdate() {
+    if (this.props.latitude && this.props.longitude) {
+      this.fetchData(this.props.latitude, this.props.longitude);
+    }
+  }
+
+  fetchData(lat, long) {
+    this.props.getRestaurantAsync(lat, long);
+  }
+
+  fetchPosition() {
+    this.props.getGeoLocationAsync();
+  }
+
   render() {
+    const {
+      name, rating, address, phone,
+    } = this.props;
     return (
       <Container>
         <Segment>
           <Grid columns={2}>
             <Grid.Column>
-              <GoogleMap />
+              {/* <GoogleMap /> */}
             </Grid.Column>
             <Grid.Column textAlign="left">
               <Header style={{ marginBottom: '10px' }}>
-                {this.state.name}
+                {name}
               </Header>
               <ReactStars
                 count={5}
                 size={14}
-                value={this.state.rating}
+                value={rating}
                 color2="#ffd700"
                 edit={false}
               />
-              <p style={{ marginTop: '10px' }}>{this.state.address}</p>
-              <p>{this.state.phone}</p>
-              <a href={this.state.website}>{this.state.website}</a>
+              <p style={{ marginTop: '10px' }}>{address}</p>
+              <p>{phone}</p>
               <p style={{ marginTop: '10px' }}>
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod
                 aut dolore quam maxime nulla eum ullam enim voluptas dolorum
@@ -51,4 +64,34 @@ class Restaurant extends Component {
   }
 }
 
-export default Restaurant;
+Restaurant.propTypes = {
+  getGeoLocationAsync: PropTypes.func.isRequired,
+  getRestaurantAsync: PropTypes.func.isRequired,
+  name: PropTypes.string,
+  rating: PropTypes.number,
+  address: PropTypes.string,
+  phone: PropTypes.string,
+  latitude: PropTypes.number,
+  longitude: PropTypes.number,
+};
+
+Restaurant.defaultProps = {
+  name: 'La Carta de Oaxaca',
+  address: 'La Carta de Oaxaca',
+  phone: '+1 206-782-8722',
+  rating: 4,
+  latitude: 0,
+  longitude: 0,
+};
+
+const mapStateToProps = state => ({
+  name: state.restaurant.name,
+  rating: state.restaurant.rating,
+  address: state.restaurant.address,
+  phone: state.restaurant.phone,
+  latitude: state.location.latitude,
+  longitude: state.location.longitude,
+});
+
+export default connect(mapStateToProps, actions)(Restaurant);
+
