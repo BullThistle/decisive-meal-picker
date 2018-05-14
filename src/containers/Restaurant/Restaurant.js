@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { Container, Header, Segment, Grid } from 'semantic-ui-react';
 import ReactStars from 'react-stars';
 import * as actions from '../../actions';
-// import { GoogleMap } from 'components';
+/* eslint-disable */
+import GoogleMap from '../../components/GoogleMap/GoogleMap';
 
 class Restaurant extends Component {
   componentDidMount() {
@@ -16,6 +17,7 @@ class Restaurant extends Component {
     if (this.props.latitude && this.props.longitude) {
       this.fetchData(this.props.latitude, this.props.longitude);
     }
+    console.log('PROPSS', this.props);
   }
 
   fetchData(lat, long) {
@@ -26,21 +28,29 @@ class Restaurant extends Component {
     this.props.getGeoLocationAsync();
   }
 
+  googleMap() {
+    if (this.props.restaurantLat !== undefined) {
+      return (
+        <GoogleMap
+          lon={this.props.restaurantLat}
+          lat={this.props.restaurantLng}
+        />
+        // <p>map</p>
+      );
+    } else {
+      return <p>Loading...</p>;
+    }
+  }
+
   render() {
-    const {
-      name, rating, address, phone,
-    } = this.props;
+    const { name, rating, address, phone } = this.props;
     return (
       <Container>
         <Segment>
           <Grid columns={2}>
-            <Grid.Column>
-              {/* <GoogleMap /> */}
-            </Grid.Column>
+            <Grid.Column>{this.googleMap()}</Grid.Column>
             <Grid.Column textAlign="left">
-              <Header style={{ marginBottom: '10px' }}>
-                {name}
-              </Header>
+              <Header style={{ marginBottom: '10px' }}>{name}</Header>
               <ReactStars
                 count={5}
                 size={14}
@@ -72,7 +82,7 @@ Restaurant.propTypes = {
   address: PropTypes.string,
   phone: PropTypes.string,
   latitude: PropTypes.number,
-  longitude: PropTypes.number,
+  longitude: PropTypes.number
 };
 
 Restaurant.defaultProps = {
@@ -81,7 +91,7 @@ Restaurant.defaultProps = {
   phone: '+1 206-782-8722',
   rating: 4,
   latitude: 0,
-  longitude: 0,
+  longitude: 0
 };
 
 const mapStateToProps = state => ({
@@ -89,9 +99,10 @@ const mapStateToProps = state => ({
   rating: state.restaurant.rating,
   address: state.restaurant.address,
   phone: state.restaurant.phone,
+  restaurantLat: state.restaurant.restaurantLat,
+  restaurantLng: state.restaurant.restaurantLng,
   latitude: state.location.latitude,
-  longitude: state.location.longitude,
+  longitude: state.location.longitude
 });
 
 export default connect(mapStateToProps, actions)(Restaurant);
-

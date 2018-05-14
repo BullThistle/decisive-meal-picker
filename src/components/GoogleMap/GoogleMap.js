@@ -11,13 +11,8 @@ const GoogleMap = props => (
 );
 
 GoogleMap.propTypes = {
-  lat: PropTypes.number,
-  lon: PropTypes.number,
-};
-
-GoogleMap.defaultProps = {
-  lat: 47.6,
-  lon: 122.33,
+  lat: PropTypes.number.isRequired,
+  lon: PropTypes.number.isRequired,
 };
 
 export default GoogleMap;
