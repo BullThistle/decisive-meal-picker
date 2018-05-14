@@ -64,5 +64,6 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "build:analyze": "cross-env ANALYZE=true node scripts/build.js"
-  }
+  },
+  "proxy": "http://localhost:3000"
 }
